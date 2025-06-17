@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Coming Soon</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(to right, #0d6efd, #6610f2);
+            min-height: 100vh;
+        }
+
+        .coming-soon-icon {
+            width: 100px;
+            animation: bounce 1.5s infinite;
+        }
+
+        @keyframes bounce {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-15px);
+            }
+        }
+    </style>
+</head>
+
+<body class="d-flex align-items-center justify-content-center text-white text-center p-4">
+
+    <div class="container">
+        <img src="https://cdn-icons-png.flaticon.com/512/159/159078.png" alt="Coming Soon"
+            class="coming-soon-icon mb-4">
+        <h1 class="display-5 fw-bold mb-3">Halaman Sedang Dalam Pengembangan</h1>
+        <p class="lead mb-4">
+            Halaman ini sedang dalam tahap pengembangan. Silakan kembali lagi di lain waktu.<br>
+            Terima kasih atas pengertiannya.
+        </p>
+        <a href="/" class="btn btn-light btn-lg px-4">Kembali ke Beranda</a>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
