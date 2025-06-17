@@ -4,13 +4,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Galeri Foto</title>
+    <title>Galeri Foto Glass Shine</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
+        body {
+            background: #f4f4f4;
+        }
+
         .gallery-img-wrapper {
             position: relative;
             overflow: hidden;
-            border-radius: 8px;
+            border-radius: 10px;
             cursor: pointer;
         }
 
@@ -31,92 +35,78 @@
             left: 0;
             width: 100%;
             padding: 10px;
-            background: rgba(0, 0, 0, 0.6);
             color: white;
             font-size: 14px;
             opacity: 0;
-            transition: opacity 0.3s ease;
+            transition: opacity 0.4s ease;
+
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(255, 255, 255, 0.3);
         }
 
         .gallery-img-wrapper:hover .gallery-caption {
             opacity: 1;
         }
 
-        /* Lightbox CSS */
-        .lightbox {
-            display: none;
-            position: fixed;
-            z-index: 999;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.85);
-            justify-content: center;
-            align-items: center;
-        }
-
-        .lightbox img {
-            max-width: 90%;
-            max-height: 90%;
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
-        }
-
-        .lightbox:target {
-            display: flex;
-        }
-
-        .lightbox-close {
+        /* Glass shine effect */
+        .gallery-img-wrapper::before {
+            content: '';
             position: absolute;
-            top: 20px;
-            right: 30px;
-            font-size: 40px;
-            color: white;
-            text-decoration: none;
+            top: -100%;
+            left: -100%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(120deg,
+                    rgba(255, 255, 255, 0) 0%,
+                    rgba(255, 255, 255, 0.4) 50%,
+                    rgba(255, 255, 255, 0) 100%);
+            transform: rotate(25deg);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .gallery-img-wrapper:hover::before {
+            animation: shine 1.2s ease-out forwards;
+            opacity: 1;
+        }
+
+        @keyframes shine {
+            from {
+                transform: translateX(-150%) rotate(25deg);
+            }
+
+            to {
+                transform: translateX(150%) rotate(25deg);
+            }
         }
     </style>
 </head>
 
-<body class="bg-light">
+<body>
 
     <div class="container py-5">
-        <h2 class="text-center mb-4">Galeri Foto</h2>
+        <h2 class="text-center mb-5">Galeri Foto Efek Kilau</h2>
         <div class="row g-4">
             <!-- Gambar 1 -->
             <div class="col-6 col-md-4 col-lg-3">
-                <a href="#img1">
-                    <div class="gallery-img-wrapper">
-                        <img src="https://via.placeholder.com/400x300" alt="Kegiatan A" class="gallery-img">
-                        <div class="gallery-caption">Kegiatan A</div>
-                    </div>
-                </a>
+                <div class="gallery-img-wrapper">
+                    <img src="assets/images/tebing_gerinting/1.jpeg" alt="Kegiatan A" class="gallery-img">
+                    <div class="gallery-caption">Kegiatan A</div>
+                </div>
             </div>
 
             <!-- Gambar 2 -->
             <div class="col-6 col-md-4 col-lg-3">
-                <a href="#img2">
-                    <div class="gallery-img-wrapper">
-                        <img src="https://via.placeholder.com/400x300" alt="Pembangunan Jalan" class="gallery-img">
-                        <div class="gallery-caption">Pembangunan Jalan</div>
-                    </div>
-                </a>
+                <div class="gallery-img-wrapper">
+                    <img src="assets/images/tebing_gerinting/2.jpg" alt="Pembangunan Jalan" class="gallery-img">
+                    <div class="gallery-caption">Pembangunan Jalan</div>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- Lightbox 1 -->
-    <div class="lightbox" id="img1">
-        <a href="#" class="lightbox-close">&times;</a>
-        <img src="https://via.placeholder.com/800x600" alt="Kegiatan A">
-    </div>
-
-    <!-- Lightbox 2 -->
-    <div class="lightbox" id="img2">
-        <a href="#" class="lightbox-close">&times;</a>
-        <img src="https://via.placeholder.com/800x600" alt="Pembangunan Jalan">
-    </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
