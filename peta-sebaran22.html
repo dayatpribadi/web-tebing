@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="zxx" dir="ltr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Peta Sebaran - Desa Payakabung</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .breadcrumbs {
+            background-color: #e9ecef;
+            padding: 12px 0;
+        }
+
+        .breadcrumb a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        .section__title h3 {
+            color: #333;
+            font-weight: 700;
+            margin-bottom: 2rem;
+        }
+
+        .card-custom {
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border: none;
+        }
+
+        .label {
+            font-weight: 600;
+            color: #495057;
+        }
+
+        .value {
+            color: #333;
+        }
+
+        #map {
+            height: 500px;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border: 2px solid #dee2e6;
+        }
+
+        .form-select {
+            border: 2px solid #dee2e6;
+            border-radius: 8px;
+            padding: 12px 16px;
+            font-size: 14px;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-select:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+        }
+
+        .form-select:disabled {
+            background-color: #f8f9fa;
+            opacity: 0.6;
+        }
+
+        .footer-outer {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .footer-social a {
+            color: rgba(255, 255, 255, 0.8);
+            transition: color 0.3s ease;
+        }
+
+        .footer-social a:hover {
+            color: white;
+        }
+
+        .loading-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #007bff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-left: 10px;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .marker-popup {
+            max-width: 250px;
+        }
+
+        .category-info {
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 8px;
+            margin-top: 15px;
+            border-left: 4px solid #007bff;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Breadcrumbs -->
+    <div class="breadcrumbs">
+        <div class="container">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb justify-content-center mb-0">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item"><a href="#">Peta Sebaran</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Peta Sebaran</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container py-5">
+        <div class="row">
+            <div class="col-12">
+                <div class="section__title text-center mb-5">
+                    <h3 class="text-uppercase">Peta Sebaran</h3>
+                </div>
+            </div>
+        </div>
+
+        <!-- Informasi Desa Card -->
+        <div class="card card-custom p-4 mb-4">
+            <h4 class="mb-4 text-primary">
+                <i class="bi bi-info-circle me-2"></i>Informasi Desa
+            </h4>
+
+            <div class="row mb-3">
+                <div class="col-md-4 label">
+                    <i class="bi bi-geo-alt me-2"></i>Nama Desa
+                </div>
+                <div class="col-md-8 value">Desa Payakabung</div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-4 label">
+                    <i class="bi bi-people me-2"></i>Jumlah Penduduk
+                </div>
+                <div class="col-md-8 value">1,200 Jiwa</div>
+            </div>
+
+            <!-- Dropdown Kategori -->
+            <div class="row mb-3">
+                <div class="col-md-4 label">
+                    <i class="bi bi-list-ul me-2"></i>Kategori
+                </div>
+                <div class="col-md-8">
+                    <div class="mb-3">
+                        <select id="dropdownKategori" class="form-select">
+                            <option value="">Pilih Kategori</option>
+                            <option value="bantuan">Bantuan Sosial</option>
+                            <option value="pembangunan">Pembangunan Infrastruktur</option>
+                            <option value="kesehatan">Kesehatan</option>
+                            <option value="pendidikan">Pendidikan</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <select id="dropdownSubKategori" class="form-select" disabled>
+                            <option value="">Pilih Subkategori</option>
+                        </select>
+                    </div>
+
+                    <!-- Info kategori terpilih -->
+                    <div id="categoryInfo" class="category-info" style="display: none;">
+                        <small class="text-muted">
+                            <i class="bi bi-info-circle me-1"></i>
+                            <span id="categoryInfoText">Pilih kategori untuk melihat data di peta</span>
+                        </small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-4 label">
+                    <i class="bi bi-database me-2"></i>Sumber Data
+                </div>
+                <div class="col-md-8 value">Kementerian Dalam Negeri</div>
+            </div>
+        </div>
+
+        <!-- Map Container -->
+        <div class="card card-custom p-3">
+            <h5 class="mb-3 text-primary">
+                <i class="bi bi-map me-2"></i>Peta Lokasi
+                <small class="text-muted ms-2" id="markerCount">(Menampilkan semua lokasi)</small>
+            </h5>
+            <div id="map"></div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer-outer py-4 mt-5">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <p class="mb-0">© 2025 Desa Tebing Gerinting - Diskominfo | All rights reserved.</p>
+                </div>
+                <div class="col-md-6">
+                    <div class="footer-social text-md-end">
+                        <a href="#" class="me-3"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="me-3"><i class="bi bi-twitter"></i></a>
+                        <a href="#" class="me-3"><i class="bi bi-instagram"></i></a>
+                        <a href="#"><i class="bi bi-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts - Menggunakan jQuery yang sudah ada di project -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <script>
+        // Menggunakan vanilla JavaScript untuk menghindari konflik jQuery
+        document.addEventListener('DOMContentLoaded', function () {
+
+            // Data untuk dropdown bertingkat
+            const kategoriData = {
+                bantuan: [
+                    "Bantuan Pangan Non Tunai (BPNT)",
+                    "Program Keluarga Harapan (PKH)",
+                    "Bantuan Langsung Tunai (BLT)",
+                    "Bantuan Sosial Tunai (BST)",
+                    "Kartu Indonesia Pintar (KIP)"
+                ],
+                pembangunan: [
+                    "Pembangunan Jalan Desa",
+                    "Pembangunan Irigasi",
+                    "Pembangunan Jembatan",
+                    "Pembangunan Drainase",
+                    "Rehabilitasi Fasilitas Umum"
+                ],
+                kesehatan: [
+                    "Posyandu",
+                    "Puskesmas Pembantu",
+                    "Program Stunting",
+                    "Imunisasi Balita",
+                    "Jamban Sehat"
+                ],
+                pendidikan: [
+                    "PAUD/TK",
+                    "Sekolah Dasar",
+                    "Perpustakaan Desa",
+                    "Beasiswa Siswa",
+                    "Pelatihan Keterampilan"
+                ]
+            };
+
+            // Dapatkan elemen DOM
+            const kategoriSelect = document.getElementById('dropdownKategori');
+            const subKategoriSelect = document.getElementById('dropdownSubKategori');
+            const categoryInfo = document.getElementById('categoryInfo');
+            const categoryInfoText = document.getElementById('categoryInfoText');
+            const markerCount = document.getElementById('markerCount');
+
+            // Event handler untuk dropdown kategori
+            kategoriSelect.addEventListener('change', function () {
+                const selectedKategori = this.value;
+
+                // Reset subkategori
+                subKategoriSelect.innerHTML = '<option value="">Pilih Subkategori</option>';
+
+                if (selectedKategori && kategoriData[selectedKategori]) {
+                    // Populate subkategori
+                    kategoriData[selectedKategori].forEach(function (item) {
+                        const option = document.createElement('option');
+                        option.value = item;
+                        option.textContent = item;
+                        subKategoriSelect.appendChild(option);
+                    });
+
+                    // Enable subkategori dropdown
+                    subKategoriSelect.disabled = false;
+
+                    // Show category info
+                    categoryInfo.style.display = 'block';
+                    categoryInfoText.textContent =
+                        `Kategori ${selectedKategori.toUpperCase()} dipilih. Pilih subkategori untuk filter lebih detail.`;
+
+                    console.log(`Kategori ${selectedKategori} dipilih`);
+                } else {
+                    // Disable subkategori dropdown
+                    subKategoriSelect.disabled = true;
+                    categoryInfo.style.display = 'none';
+                }
+
+                // Update map markers
+                updateMapMarkers('', selectedKategori);
+            });
+
+            // Event handler untuk subkategori
+            subKategoriSelect.addEventListener('change', function () {
+                const selectedSub = this.value;
+                const selectedKategori = kategoriSelect.value;
+
+                if (selectedSub) {
+                    categoryInfoText.textContent = `Menampilkan: ${selectedSub}`;
+                    console.log('Subkategori dipilih:', selectedSub);
+                } else {
+                    categoryInfoText.textContent =
+                        `Kategori ${selectedKategori.toUpperCase()} dipilih. Pilih subkategori untuk filter lebih detail.`;
+                }
+
+                // Update map markers
+                updateMapMarkers(selectedSub, selectedKategori);
+            });
+
+            // Inisialisasi Peta Leaflet
+            console.log('Inisialisasi peta...');
+            const map = L.map('map').setView([-2.895, 104.705], 14);
+
+            // Tambahkan tile layer
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 18,
+                attribution: '© OpenStreetMap contributors'
+            }).addTo(map);
+
+            // Data marker contoh dengan koordinat yang lebih bervariasi
+            const markerData = {
+                center: {
+                    lat: -2.895,
+                    lng: 104.705,
+                    title: 'Desa Payakabung',
+                    info: 'Pusat Desa<br>Jumlah Penduduk: 1,200 Jiwa',
+                    icon: '🏛️'
+                },
+                locations: [{
+                        lat: -2.890,
+                        lng: 104.700,
+                        title: 'Posyandu Melati',
+                        category: 'kesehatan',
+                        subcategory: 'Posyandu',
+                        info: 'Posyandu aktif melayani 150 balita<br>Jadwal: Setiap hari Rabu',
+                        icon: '🏥'
+                    },
+                    {
+                        lat: -2.900,
+                        lng: 104.710,
+                        title: 'SD Negeri 1 Payakabung',
+                        category: 'pendidikan',
+                        subcategory: 'Sekolah Dasar',
+                        info: 'Siswa aktif: 245 anak<br>Guru: 12 orang',
+                        icon: '🏫'
+                    },
+                    {
+                        lat: -2.892,
+                        lng: 104.708,
+                        title: 'Program PKH RT 03',
+                        category: 'bantuan',
+                        subcategory: 'Program Keluarga Harapan (PKH)',
+                        info: 'Penerima PKH: 25 keluarga<br>Bantuan per bulan: Rp 750.000',
+                        icon: '💰'
+                    },
+                    {
+                        lat: -2.888,
+                        lng: 104.702,
+                        title: 'Jalan Utama Desa',
+                        category: 'pembangunan',
+                        subcategory: 'Pembangunan Jalan Desa',
+                        info: 'Panjang: 2.5 km<br>Status: Selesai (2024)',
+                        icon: '🛣️'
+                    },
+                    {
+                        lat: -2.897,
+                        lng: 104.712,
+                        title: 'PAUD Harapan Bangsa',
+                        category: 'pendidikan',
+                        subcategory: 'PAUD/TK',
+                        info: 'Siswa: 45 anak<br>Usia 3-6 tahun',
+                        icon: '🎒'
+                    },
+                    {
+                        lat: -2.885,
+                        lng: 104.695,
+                        title: 'Penerima BPNT RT 01',
+                        category: 'bantuan',
+                        subcategory: 'Bantuan Pangan Non Tunai (BPNT)',
+                        info: 'Penerima: 18 keluarga<br>Bantuan: Rp 110.000/bulan',
+                        icon: '🍚'
+                    }
+                ]
+            };
+
+            let allMarkers = [];
+
+            // Custom icon function
+            function createCustomIcon(emoji) {
+                return L.divIcon({
+                    html: `<div style="background: white; border-radius: 50%; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; font-size: 16px; border: 2px solid #007bff; box-shadow: 0 2px 4px rgba(0,0,0,0.2);">${emoji}</div>`,
+                    iconSize: [30, 30],
+                    className: 'custom-div-icon'
+                });
+            }
+
+            // Tambahkan marker pusat desa
+            const centerMarker = L.marker([markerData.center.lat, markerData.center.lng], {
+                    icon: createCustomIcon(markerData.center.icon)
+                })
+                .addTo(map)
+                .bindPopup(
+                    `<div class="marker-popup"><strong>${markerData.center.title}</strong><br>${markerData.center.info}</div>`
+                    )
+                .openPopup();
+
+            // Tambahkan marker lokasi lainnya
+            markerData.locations.forEach(function (location) {
+                const marker = L.marker([location.lat, location.lng], {
+                        icon: createCustomIcon(location.icon)
+                    })
+                    .addTo(map)
+                    .bindPopup(
+                        `<div class="marker-popup"><strong>${location.title}</strong><br><em>Kategori: ${location.category}</em><br>${location.info}</div>`
+                        );
+
+                marker.category = location.category;
+                marker.subcategory = location.subcategory;
+                marker.locationData = location;
+                allMarkers.push(marker);
+            });
+
+            console.log('Peta berhasil diinisialisasi dengan', allMarkers.length, 'marker');
+
+            // Fungsi untuk update marker berdasarkan filter
+            function updateMapMarkers(selectedSubcategory, selectedCategory) {
+                let visibleCount = 0;
+
+                allMarkers.forEach(function (marker) {
+                    let shouldShow = true;
+
+                    // Filter berdasarkan kategori
+                    if (selectedCategory && marker.category !== selectedCategory) {
+                        shouldShow = false;
+                    }
+
+                    // Filter berdasarkan subkategori
+                    if (selectedSubcategory && marker.subcategory !== selectedSubcategory) {
+                        shouldShow = false;
+                    }
+
+                    if (shouldShow) {
+                        if (!map.hasLayer(marker)) {
+                            marker.addTo(map);
+                        }
+                        visibleCount++;
+                    } else {
+                        if (map.hasLayer(marker)) {
+                            map.removeLayer(marker);
+                        }
+                    }
+                });
+
+                // Update counter
+                if (selectedSubcategory) {
+                    markerCount.textContent = `(Menampilkan ${visibleCount} lokasi - ${selectedSubcategory})`;
+                } else if (selectedCategory) {
+                    markerCount.textContent = `(Menampilkan ${visibleCount} lokasi - ${selectedCategory})`;
+                } else {
+                    markerCount.textContent = `(Menampilkan semua lokasi)`;
+                }
+
+                console.log('Marker difilter. Tampil:', visibleCount);
+            }
+
+            // Trigger resize untuk memastikan peta tampil dengan benar
+            setTimeout(function () {
+                map.invalidateSize();
+                console.log('Peta resize selesai');
+            }, 100);
+        });
+    </script>
+</body>
+
+</html>
