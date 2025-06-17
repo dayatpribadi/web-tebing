@@ -631,95 +631,237 @@
                 <ul class="breadcrumb nav-x justify-center gap-1 fs-7 sm:fs-6 m-0">
                     <li><a href="index.html">Home</a></li>
                     <li><i class="unicon-chevron-right opacity-50"></i></li>
-                    <li><a href="bumdes.html">Bumdes</a></li>
+                    <li><a href="data-usia.html">Statistik Penduduk</a></li>
                     <li><i class="unicon-chevron-right opacity-50"></i></li>
-                    <li><span class="opacity-50">List Bumdes </span></li>
+                    <li><span class="opacity-50">Statistik Data Penduduk Berdasarkan Usia </span></li>
                 </ul>
             </div>
         </div>
-
-        <section class="featured pt-6 pb-9">
-            <div class="container">
-                <div class="row text-center mb-30">
-                    <div class="card p-0">
-                        <div class="card-header gradient">
-                            <span><i class="fal fa-folders mr-10"></i></span>DATA LEMBAGA BUMDES DOA BERSAMA KELURAHAN
-                            INDRALAYA MULYA
-                        </div>
-                        <div class="card-body text-center">
-                            <div class="row justify-center pt-6 pb-4">
-                                <img class="rounded" src="assets/images/tebing_gerinting/bumndes.jpg"
-                                    style="width: 200px !important; border-radius: 10px !important;" alt="">
-                            </div>
-
-
-                            <div class="row">
-                                <div class="col-xl-12">
+        <section class="topsell__area-2">
+            <div class="container my-4">
+                <div class="row ">
+                    <div class="container my-5">
+                        <div class="py-5" id="chart-umur" style="height: 500px"></div>
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <div class="section__head justify-center">
                                     <div class="section__title">
-                                        <h3 class="st-titile">Daftar Anggota</h3>
+                                        <h4 class="text-center fw-bold pt-6 pb-4 text-uppercase">Jumlah dan Persentase
+                                            Penduduk Berdasarkan
+                                            Usia
+                                            Dalam KK</h4>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
-                        <div class="row">
-                            <div class="col-md-12 mx-auto">
-                                <div class="table-responsive">
-                                    <table id="anggotaTable" class="table table-bordered table-striped">
-                                        <thead class="table-light">
-                                            <tr>
-                                                <th>No. Anggota</th>
-                                                <th>Nama</th>
-                                                <th>Jabatan</th>
-                                                <th>Jenis Kelamin</th>
-                                                <th>Umur</th>
-                                                <th>Dusun</th>
-                                                <th>RW</th>
-                                                <th>RT</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>SUSWADI</td>
-                                                <td>KETUA</td>
-                                                <td>LAKI-LAKI</td>
-                                                <td>36</td>
-                                                <td>SENURO</td>
-                                                <td>000</td>
-                                                <td>001</td>
-                                            </tr>
-                                            <tr>
-                                                <td>2</td>
-                                                <td>ARMAN ALMAHDI</td>
-                                                <td>SEKRETARIS</td>
-                                                <td>LAKI-LAKI</td>
-                                                <td>25</td>
-                                                <td>SENURO</td>
-                                                <td>000</td>
-                                                <td>001</td>
-                                            </tr>
-                                            <tr>
-                                                <td>3</td>
-                                                <td>ARI TRIADI</td>
-                                                <td>BENDAHARA</td>
-                                                <td>LAKI-LAKI</td>
-                                                <td>20</td>
-                                                <td>SENURO</td>
-                                                <td>000</td>
-                                                <td>001</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-striped">
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Kelompok</th>
+                                        <th>Jumlah Jiwa</th>
+                                        <th>%</th>
+                                        <th>Laki-laki</th>
+                                        <th>%</th>
+                                        <th>Perempuan</th>
+                                        <th>%</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>Di bawah 1 Tahun</td>
+                                        <td>8</td>
+                                        <td>0,63%</td>
+                                        <td>3</td>
+                                        <td>0,24%</td>
+                                        <td>5</td>
+                                        <td>0,39%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td>2 s/d 4 Tahun</td>
+                                        <td>10</td>
+                                        <td>0,79%</td>
+                                        <td>7</td>
+                                        <td>0,55%</td>
+                                        <td>3</td>
+                                        <td>0,24%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>3</td>
+                                        <td>5 s/d 9 Tahun</td>
+                                        <td>23</td>
+                                        <td>1,81%</td>
+                                        <td>8</td>
+                                        <td>0,63%</td>
+                                        <td>15</td>
+                                        <td>1,18%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>4</td>
+                                        <td>10 s/d 14 Tahun</td>
+                                        <td>29</td>
+                                        <td>2,28%</td>
+                                        <td>17</td>
+                                        <td>1,34%</td>
+                                        <td>12</td>
+                                        <td>0,94%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>5</td>
+                                        <td>15 s/d 19 Tahun</td>
+                                        <td>57</td>
+                                        <td>4,49%</td>
+                                        <td>19</td>
+                                        <td>1,50%</td>
+                                        <td>38</td>
+                                        <td>2,99%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>6</td>
+                                        <td>20 s/d 24 Tahun</td>
+                                        <td>149</td>
+                                        <td>11,73%</td>
+                                        <td>71</td>
+                                        <td>5,59%</td>
+                                        <td>78</td>
+                                        <td>6,14%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>7</td>
+                                        <td>25 s/d 29 Tahun</td>
+                                        <td>158</td>
+                                        <td>12,44%</td>
+                                        <td>79</td>
+                                        <td>6,22%</td>
+                                        <td>79</td>
+                                        <td>6,22%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>8</td>
+                                        <td>30 s/d 34 Tahun</td>
+                                        <td>143</td>
+                                        <td>11,26%</td>
+                                        <td>72</td>
+                                        <td>5,67%</td>
+                                        <td>71</td>
+                                        <td>5,59%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>9</td>
+                                        <td>35 s/d 39 Tahun</td>
+                                        <td>120</td>
+                                        <td>9,45%</td>
+                                        <td>61</td>
+                                        <td>4,80%</td>
+                                        <td>59</td>
+                                        <td>4,65%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>10</td>
+                                        <td>40 s/d 44 Tahun</td>
+                                        <td>139</td>
+                                        <td>10,94%</td>
+                                        <td>67</td>
+                                        <td>5,28%</td>
+                                        <td>72</td>
+                                        <td>5,67%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>11</td>
+                                        <td>45 s/d 49 Tahun</td>
+                                        <td>118</td>
+                                        <td>9,29%</td>
+                                        <td>53</td>
+                                        <td>4,17%</td>
+                                        <td>65</td>
+                                        <td>5,12%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>12</td>
+                                        <td>50 s/d 54 Tahun</td>
+                                        <td>86</td>
+                                        <td>6,77%</td>
+                                        <td>44</td>
+                                        <td>3,46%</td>
+                                        <td>42</td>
+                                        <td>3,31%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>13</td>
+                                        <td>55 s/d 59 Tahun</td>
+                                        <td>76</td>
+                                        <td>5,98%</td>
+                                        <td>32</td>
+                                        <td>2,52%</td>
+                                        <td>44</td>
+                                        <td>3,46%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>14</td>
+                                        <td>60 s/d 64 Tahun</td>
+                                        <td>66</td>
+                                        <td>5,20%</td>
+                                        <td>40</td>
+                                        <td>3,15%</td>
+                                        <td>26</td>
+                                        <td>2,05%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>15</td>
+                                        <td>65 s/d 69 Tahun</td>
+                                        <td>44</td>
+                                        <td>3,46%</td>
+                                        <td>23</td>
+                                        <td>1,81%</td>
+                                        <td>21</td>
+                                        <td>1,65%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>16</td>
+                                        <td>70 s/d 74 Tahun</td>
+                                        <td>19</td>
+                                        <td>1,50%</td>
+                                        <td>9</td>
+                                        <td>0,71%</td>
+                                        <td>10</td>
+                                        <td>0,79%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>17</td>
+                                        <td>75 Tahun ke Atas</td>
+                                        <td>25</td>
+                                        <td>1,97%</td>
+                                        <td>9</td>
+                                        <td>0,71%</td>
+                                        <td>16</td>
+                                        <td>1,26%</td>
+                                    </tr>
+                                    <tr class="fw-bold table-warning">
+                                        <td colspan="2">TOTAL</td>
+                                        <td>1.270</td>
+                                        <td>100,00%</td>
+                                        <td>614</td>
+                                        <td>48,35%</td>
+                                        <td>656</td>
+                                        <td>51,65%</td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
+
                     </div>
                 </div>
+                <div class="row">
+                    <p class="text-end mt-3"><small>Diperbarui: 14 Mei 2025 22:14:00</small></p>
+                </div>
             </div>
-
         </section>
+
     </div>
+
 
 
     <!-- Galeri Video -->
@@ -1196,59 +1338,109 @@
 
 
     <script>
-        // ----- data -----
-        const male = 1085;
-        const female = 1017;
-        const totalPop = male + female;
-
-        // ----- Highcharts config -----
-        Highcharts.chart('populationChart', {
+        Highcharts.chart('chart-umur', {
             chart: {
-                type: 'bar', // atau putih jika ingin solid
-                backgroundColor: '#fff',
+                type: 'pie',
+                options3d: {
+                    enabled: true,
+                    alpha: 45
+                }
             },
             title: {
-                text: 'G R A F I K',
-                style: {
-                    color: '#000' // pastikan teks tidak hitam jika latar hitam
+                text: 'Sebaran Penduduk Menurut Kelompok Umur<br>Desa Tebing Gerinting, 2025'
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.percentage:.2f}%</b> ({point.y} jiwa)'
+            },
+            accessibility: {
+                point: {
+                    valueSuffix: '%'
                 }
             },
-            xAxis: {
-                categories: ['LAKI-LAKI 1085', 'PEREMPUAN 1017', 'TOTAL 2102'],
-                labels: {
-                    style: {
-                        color: '#000'
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    depth: 35,
+                    dataLabels: {
+                        enabled: true,
+                        format: '{point.name}: {point.y} jiwa'
                     }
-                }
-            },
-            yAxis: {
-                title: {
-                    text: 'Jumlah (Jiwa)',
-                    style: {
-                        color: '#000'
-                    }
-                },
-                labels: {
-                    style: {
-                        color: '#000'
-                    }
-                }
-            },
-            legend: {
-                enabled: false,
-                itemStyle: {
-                    color: '#000'
                 }
             },
             series: [{
-                name: 'Jumlah',
-                data: [1085, 1017, 2102],
+                name: 'Persentase',
                 colorByPoint: true,
-                colors: ['#00cfe8', '#c084fc', '#a3e635']
-            }],
-            credits: {
-                enabled: false
-            }
+                data: [{
+                        name: 'Di bawah 1 Tahun',
+                        y: 8
+                    },
+                    {
+                        name: '2 s/d 4 Tahun',
+                        y: 10
+                    },
+                    {
+                        name: '5 s/d 9 Tahun',
+                        y: 23
+                    },
+                    {
+                        name: '10 s/d 14 Tahun',
+                        y: 29
+                    },
+                    {
+                        name: '15 s/d 19 Tahun',
+                        y: 57
+                    },
+                    {
+                        name: '20 s/d 24 Tahun',
+                        y: 149
+                    },
+                    {
+                        name: '25 s/d 29 Tahun',
+                        y: 158
+                    },
+                    {
+                        name: '30 s/d 34 Tahun',
+                        y: 143
+                    },
+                    {
+                        name: '35 s/d 39 Tahun',
+                        y: 120
+                    },
+                    {
+                        name: '40 s/d 44 Tahun',
+                        y: 139
+                    },
+                    {
+                        name: '45 s/d 49 Tahun',
+                        y: 118
+                    },
+                    {
+                        name: '50 s/d 54 Tahun',
+                        y: 86
+                    },
+                    {
+                        name: '55 s/d 59 Tahun',
+                        y: 76
+                    },
+                    {
+                        name: '60 s/d 64 Tahun',
+                        y: 66
+                    },
+                    {
+                        name: '65 s/d 69 Tahun',
+                        y: 44
+                    },
+                    {
+                        name: '70 s/d 74 Tahun',
+                        y: 19
+                    },
+                    {
+                        name: '75 Tahun ke Atas',
+                        y: 25
+                    }
+                ]
+            }]
         });
     </script>
 
