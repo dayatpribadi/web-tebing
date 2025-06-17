@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Galeri Foto</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .gallery-img-wrapper {
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .gallery-img {
+            height: 200px;
+            object-fit: cover;
+            width: 100%;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-img-wrapper:hover .gallery-img {
+            transform: scale(1.05);
+        }
+
+        .gallery-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.6);
+            color: white;
+            font-size: 14px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .gallery-img-wrapper:hover .gallery-caption {
+            opacity: 1;
+        }
+
+        /* Lightbox CSS */
+        .lightbox {
+            display: none;
+            position: fixed;
+            z-index: 999;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .lightbox img {
+            max-width: 90%;
+            max-height: 90%;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+        }
+
+        .lightbox:target {
+            display: flex;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 40px;
+            color: white;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body class="bg-light">
+
+    <div class="container py-5">
+        <h2 class="text-center mb-4">Galeri Foto</h2>
+        <div class="row g-4">
+            <!-- Gambar 1 -->
+            <div class="col-6 col-md-4 col-lg-3">
+                <a href="#img1">
+                    <div class="gallery-img-wrapper">
+                        <img src="https://via.placeholder.com/400x300" alt="Kegiatan A" class="gallery-img">
+                        <div class="gallery-caption">Kegiatan A</div>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Gambar 2 -->
+            <div class="col-6 col-md-4 col-lg-3">
+                <a href="#img2">
+                    <div class="gallery-img-wrapper">
+                        <img src="https://via.placeholder.com/400x300" alt="Pembangunan Jalan" class="gallery-img">
+                        <div class="gallery-caption">Pembangunan Jalan</div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lightbox 1 -->
+    <div class="lightbox" id="img1">
+        <a href="#" class="lightbox-close">&times;</a>
+        <img src="https://via.placeholder.com/800x600" alt="Kegiatan A">
+    </div>
+
+    <!-- Lightbox 2 -->
+    <div class="lightbox" id="img2">
+        <a href="#" class="lightbox-close">&times;</a>
+        <img src="https://via.placeholder.com/800x600" alt="Pembangunan Jalan">
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
